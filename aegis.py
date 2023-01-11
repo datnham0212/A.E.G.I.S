@@ -1,6 +1,7 @@
 import pyttsx3 as pt
 import handling_date_time as dt
 import datetime
+import wiki
 
 class Aegis:
     def __init__(self):
@@ -17,8 +18,10 @@ class Aegis:
                 break
 
             if user_input.lower() == 'today':
-                # print(dt.getCurrentDate())
                 self.handle_date_request()
+            
+            if user_input.lower() == 'wiki':
+                self.handle_wiki('Humans')
                 
 
     def aegis_voice(self):    
@@ -44,6 +47,9 @@ class Aegis:
         self.engine.say(dt.getFullDateMessage())
         self.engine.runAndWait()
 
+    def handle_wiki(self, query):
+        self.engine.say(wiki.read_wiki(query))
+        self.engine.runAndWait()
 
     def aegis_stop(self):
         self.engine.say(f"Very well sir.")
