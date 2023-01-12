@@ -2,6 +2,7 @@ import pyttsx3 as pt
 import handling_date_time as dt
 import datetime
 import wiki
+import handling_weather as hw
 
 class Aegis:
     def __init__(self):
@@ -22,6 +23,9 @@ class Aegis:
             
             if user_input.lower() == 'wiki':
                 self.handle_wiki('Humans')
+
+            if user_input.lower() == 'weather':
+                self.handle_weather('London')
                 
 
     def aegis_voice(self):    
@@ -48,7 +52,12 @@ class Aegis:
         self.engine.runAndWait()
 
     def handle_wiki(self, query):
-        self.engine.say(wiki.read_wiki(query))
+        self.engine.say(wiki.read_from_wiki(query))
+        self.engine.runAndWait()
+
+    def handle_weather(self, city):
+        temp = hw.weather_info(city)
+        self.engine.say(temp)
         self.engine.runAndWait()
 
     def aegis_stop(self):
